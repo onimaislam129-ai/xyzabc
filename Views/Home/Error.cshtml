@@ -1,0 +1,30 @@
+﻿@model Employee_Management_System.Models.ErrorViewModel
+
+@{
+    ViewData["Title"] = "Error";
+    var errorMessage = ViewData["ErrorMessage"]?.ToString();
+}
+
+<div class="text-center mt-5">
+    <h1 class="text-danger">Oops! Something went wrong.</h1>
+
+    @if (!string.IsNullOrEmpty(errorMessage))
+    {
+        <p class="text-muted">@errorMessage</p>
+    }
+    else
+    {
+        <p class="text-muted">An unexpected error occurred. Please try again later.</p>
+    }
+
+    @if (Model?.ShowRequestId == true)
+    {
+        <p>
+            <strong>Request ID:</strong> <code>@Model.RequestId</code>
+        </p>
+    }
+
+    <a class="btn btn-primary mt-3" asp-controller="Home" asp-action="Index">
+        Back to Home
+    </a>
+</div>

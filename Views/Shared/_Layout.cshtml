@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Employee_Management_System</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Employee_Management_System.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <!-- Conditional Navbar: hide on Index page -->
+    @if (!(ViewContext.RouteData.Values["controller"]?.ToString() == "Home"
+        && ViewContext.RouteData.Values["action"]?.ToString() == "Index"))
+    {
+        <header>
+            <nav class="navbar navbar-expand-sm navbar-light bg-light border-bottom mb-3">
+                <div class="container-fluid">
+                    @* Company Name: redirect to Home/Dashboard *@
+                    <a class="navbar-brand fw-bold" asp-area="" asp-controller="Home" asp-action="Dashboard">
+                        <i class="fas fa-shield-alt me-2"></i> Jagoran Security Service
+                    </a>
+
+                    <div class="d-flex ms-auto">
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <a class="nav-link fw-bold" asp-area="Identity" asp-page="/Account/Logout">
+                                <i class="fas fa-user-cog me-1"></i> Admin
+                            </a>
+                        }
+                        else if (User.IsInRole("Guard"))
+                        {
+                            <a class="nav-link fw-bold" asp-area="Identity" asp-page="/Account/Logout">
+                                <i class="fas fa-user-shield me-1"></i> Guard
+                            </a>
+                        }
+                    </div>
+                </div>
+            </nav>
+        </header>
+    }
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!-- Footer: Date and Time -->
+    <div id="footer-date-time">
+        @DateTime.Now.ToString("dddd, MMMM dd, yyyy – h:mm tt")
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+    <style>
+        #footer-date-time {
+            position: fixed;
+            bottom: 10px;
+            right: 20px;
+            font-size: 14px;
+            color: #666;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 8px 12px;
+            border-radius: 8px;
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            z-index: 999;
+        }
+    </style>
+</body>
+</html>

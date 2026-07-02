@@ -1,0 +1,71 @@
+﻿@model EmployeeManagementSystem.Models.Attendance
+
+@{
+    ViewData["Title"] = "Create Attendance";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-plus-circle me-2"></i> Create Attendance
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card shadow-lg rounded-3 border-0">
+        <div class="card-body p-4">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Employee Dropdown -->
+                <div class="form-floating mb-3">
+                    <select asp-for="EmployeeId" class="form-select" asp-items="@(ViewData["EmployeeId"] as SelectList)">
+                        <option value="">-- Select Employee --</option>
+                    </select>
+                    <label asp-for="EmployeeId">
+                        <i class="fas fa-user me-1"></i> Employee
+                    </label>
+                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                </div>
+
+                <!-- Date Picker -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Date" class="form-control" type="date" />
+                    <label asp-for="Date">
+                        <i class="fas fa-calendar-day me-1"></i> Date
+                    </label>
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <!-- Status Dropdown -->
+                <div class="form-floating mb-3">
+                    <select asp-for="Status" class="form-select">
+                        <option value="">-- Select Status --</option>
+                        @foreach (var status in Enum.GetValues(typeof(EmployeeManagementSystem.Models.AttendanceStatus)))
+                        {
+                            <option value="@status">@status</option>
+                        }
+                    </select>
+                    <label asp-for="Status">
+                        <i class="fas fa-clipboard-check me-1"></i> Status
+                    </label>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="d-flex justify-content-end mt-4">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus me-1"></i> Create
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

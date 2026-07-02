@@ -1,0 +1,76 @@
+﻿@model EmployeeManagementSystem.Models.Employee
+
+@{
+    ViewData["Title"] = "Employee Details";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-info-circle me-2"></i> Employee Details
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-3 p-4">
+        <dl class="row mb-0">
+            <!-- Full Name -->
+            <dt class="col-sm-3 fw-semibold text-secondary">
+                <i class="fas fa-id-card me-1"></i> Full Name
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.FullName)
+            </dd>
+
+            <!-- Phone -->
+            <dt class="col-sm-3 fw-semibold text-secondary">
+                <i class="fas fa-phone me-1"></i> Phone
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Phone)
+            </dd>
+
+            <!-- Address -->
+            <dt class="col-sm-3 fw-semibold text-secondary">
+                <i class="fas fa-map-marker-alt me-1"></i> Address
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Address)
+            </dd>
+
+            <!-- Position -->
+            <dt class="col-sm-3 fw-semibold text-secondary">
+                <i class="fas fa-briefcase me-1"></i> Position
+            </dt>
+            <dd class="col-sm-9">
+                @Html.DisplayFor(model => model.Position)
+            </dd>
+
+            <!-- Joining Date -->
+            <dt class="col-sm-3 fw-semibold text-secondary">
+                <i class="fas fa-calendar-alt me-1"></i> Joining Date
+            </dt>
+            <dd class="col-sm-9">
+                @Model.JoiningDate.ToString("dd MMM yyyy")
+            </dd>
+        </dl>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-end">
+        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary me-2">
+            <i class="fas fa-edit me-1"></i> Edit
+        </a>
+    </div>
+</div>
+
+<style>
+    .card dl dt {
+        font-weight: 600;
+    }
+
+    .card dl dd {
+        margin-bottom: 0.75rem;
+    }
+</style>

@@ -1,0 +1,114 @@
+﻿@model EmployeeManagementSystem.Models.Shift
+@{
+    ViewData["Title"] = "Create Shift";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-clock me-2"></i> Create Shift
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-3 p-4">
+        <form asp-action="Create">
+            <!-- Shift Name -->
+            <div class="form-floating mb-3">
+                <input asp-for="Name" class="form-control" placeholder="Shift Name" />
+                <label asp-for="Name">
+                    <i class="fas fa-tag me-1"></i> Shift Name
+                </label>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+
+            <!-- Start Time -->
+            <div class="mb-3">
+                <label for="StartTimeInput" class="form-label">
+                    <i class="fas fa-play-circle me-1"></i> Start Time
+                </label>
+                <input type="time" id="StartTimeInput" class="form-control" />
+                <span asp-validation-for="StartTime" class="text-danger"></span>
+            </div>
+
+            <!-- End Time -->
+            <div class="mb-3">
+                <label for="EndTimeInput" class="form-label">
+                    <i class="fas fa-stop-circle me-1"></i> End Time
+                </label>
+                <input type="time" id="EndTimeInput" class="form-control" />
+                <span asp-validation-for="EndTime" class="text-danger"></span>
+            </div>
+
+            <!-- Break Time -->
+            <div class="mb-3">
+                <label for="BreakTimeMinutes" class="form-label">
+                    <i class="fas fa-coffee me-1"></i> Break Time (minutes)
+                </label>
+                <input type="number" min="0" id="BreakTimeMinutes" class="form-control" placeholder="Enter break in minutes" />
+                <span asp-validation-for="BreakTime" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus-circle me-1"></i> Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        const form = document.querySelector('form');
+
+        form.addEventListener('submit', function () {
+            // Convert Start Time to HH:mm:ss
+            const startInput = document.getElementById('StartTimeInput');
+            const [startHour, startMinute] = startInput.value.split(':');
+            const startTime = `${startHour}:${startMinute}:00`;
+
+            const startHidden = document.createElement('input');
+            startHidden.type = 'hidden';
+            startHidden.name = 'StartTime';
+            startHidden.value = startTime;
+            form.appendChild(startHidden);
+
+            // Convert End Time to HH:mm:ss
+            const endInput = document.getElementById('EndTimeInput');
+            const [endHour, endMinute] = endInput.value.split(':');
+            const endTime = `${endHour}:${endMinute}:00`;
+
+            const endHidden = document.createElement('input');
+            endHidden.type = 'hidden';
+            endHidden.name = 'EndTime';
+            endHidden.value = endTime;
+            form.appendChild(endHidden);
+
+            // Convert BreakTime to HH:mm:ss
+            const minutesInput = document.getElementById('BreakTimeMinutes');
+            const minutes = parseInt(minutesInput.value) || 0;
+            const breakTime = `00:${minutes.toString().padStart(2, '0')}:00`;
+
+            const breakHidden = document.createElement('input');
+            breakHidden.type = 'hidden';
+            breakHidden.name = 'BreakTime';
+            breakHidden.value = breakTime;
+            form.appendChild(breakHidden);
+        });
+    </script>
+}
+
+<style>
+    .card label {
+        font-weight: 500;
+    }
+
+    .btn {
+        border-radius: 6px;
+    }
+</style>

@@ -1,0 +1,65 @@
+﻿@model EmployeeManagementSystem.Models.Attendance
+
+@{
+    ViewData["Title"] = "Edit Attendance";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-user-check me-2"></i> Edit Attendance
+        </h2>
+        <a asp-action="Index" class="btn btn-outline-secondary">
+            <i class="fas fa-arrow-left me-1"></i> Back to List
+        </a>
+    </div>
+
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-4">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="Id" />
+
+                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                <!-- Employee -->
+                <div class="mb-3">
+                    <label asp-for="EmployeeId" class="form-label fw-semibold">
+                        <i class="fas fa-user me-1 text-secondary"></i> Employee
+                    </label>
+                    <select asp-for="EmployeeId" class="form-select" asp-items="@(ViewData["EmployeeId"] as SelectList)"></select>
+                    <span asp-validation-for="EmployeeId" class="text-danger"></span>
+                </div>
+
+                <!-- Date -->
+                <div class="mb-3">
+                    <label asp-for="Date" class="form-label fw-semibold">
+                        <i class="fas fa-calendar-day me-1 text-secondary"></i> Date
+                    </label>
+                    <input asp-for="Date" class="form-control" type="date" />
+                    <span asp-validation-for="Date" class="text-danger"></span>
+                </div>
+
+                <!-- Status -->
+                <div class="mb-3">
+                    <label asp-for="Status" class="form-label fw-semibold">
+                        <i class="fas fa-clipboard-check me-1 text-secondary"></i> Status
+                    </label>
+                    <select asp-for="Status" class="form-select" asp-items="@(ViewData["StatusList"] as SelectList)"></select>
+                    <span asp-validation-for="Status" class="text-danger"></span>
+                </div>
+
+                <!-- Save Button -->
+                <div class="d-flex justify-content-end">
+                    <button type="submit" class="btn btn-primary px-4">
+                        <i class="fas fa-save me-2"></i> Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

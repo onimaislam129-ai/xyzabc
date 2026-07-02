@@ -1,0 +1,131 @@
+﻿@model IEnumerable<EmployeeManagementSystem.Models.Salary>
+
+@{
+    ViewData["Title"] = "Salaries";
+
+    // Pagination values safely retrieved
+    int currentPage = ViewData["CurrentPage"] is int cp ? cp : 1;
+    int totalPages = ViewData["TotalPages"] is int tp ? tp : 1;
+    string searchTerm = ViewData["SearchTerm"] as string ?? "";
+}
+
+<div class="container mt-4">
+    <!-- Header Section -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold text-primary">
+            <i class="fas fa-money-check-alt me-2"></i> Salaries
+        </h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <a asp-action="Create" class="btn btn-success">
+                <i class="fas fa-plus-circle me-1"></i> Create New
+            </a>
+        }
+    </div>
+
+    <!-- Search Bar -->
+    <form asp-action="Index" method="get" class="mb-3">
+        <div class="d-flex">
+            <div class="input-group" style="max-width: 300px;">
+                <input type="text" name="searchTerm" value="@searchTerm" class="form-control" placeholder="Search..." />
+                <button type="submit" class="btn btn-outline-primary">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+
+    <!-- Salaries Table -->
+    <div class="card shadow-lg border-0 rounded-3">
+        <div class="card-body p-4">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th><i class="fas fa-user me-1"></i> @Html.DisplayNameFor(model => model.Employee)</th>
+                        <th><i class="fas fa-calendar-alt me-1"></i> @Html.DisplayNameFor(model => model.Month)</th>
+                        <th><i class="fas fa-calendar me-1"></i> @Html.DisplayNameFor(model => model.Year)</th>
+                        <th><i class="fas fa-dollar-sign me-1"></i> @Html.DisplayNameFor(model => model.TotalSalary)</th>
+                        <th class="text-end"><i class="fas fa-cogs me-1"></i> Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.Employee.FullName</td>
+                            <td>@System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(item.Month)</td>
+                            <td>@item.Year</td>
+                            <td>@item.TotalSalary.ToString("C")</td>
+                            <td class="text-end">
+                                @* Admin can Edit *@
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-primary me-1">
+                                        <i class="fas fa-edit"></i> Edit
+                                    </a>
+                                }
+                                @* Both Admin and Guard can view Details *@
+                                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info me-1 text-white">
+                                    <i class="fas fa-info-circle"></i> Details
+                                </a>
+                                @* No Delete button as requested *@
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Pagination Controls -->
+    @if (totalPages > 1)
+    {
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-3">
+                <li class="page-item @(currentPage == 1 ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(currentPage - 1)" asp-route-searchTerm="@searchTerm">
+                        <i class="fas fa-chevron-left"></i>
+                    </a>
+                </li>
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    <li class="page-item @(currentPage == i ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i" asp-route-searchTerm="@searchTerm">@i</a>
+                    </li>
+                }
+
+                <li class="page-item @(currentPage == totalPages ? "disabled" : "")">
+                    <a class="page-link" asp-action="Index" asp-route-page="@(currentPage + 1)" asp-route-searchTerm="@searchTerm">
+                        <i class="fas fa-chevron-right"></i>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    }
+</div>
+
+<style>
+    .table th {
+        font-weight: 600;
+    }
+
+    .btn {
+        border-radius: 6px;
+    }
+
+    .card {
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .pagination .page-item .page-link {
+        border-radius: 6px;
+    }
+
+    .pagination .page-item.active .page-link {
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+        color: white;
+    }
+</style>

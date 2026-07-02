@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<body class="ems-body">
+    <div class="d-flex justify-content-start align-items-center" style="height:100vh; padding-left: 50px;">
+        <div class="ems-card" style="padding:50px; max-width:480px;">
+            <h2 class="mb-3">
+                <i class="fas fa-shield-alt ems-icon"></i> Jagoran Security Service Pvt. Ltd.
+            </h2>
+            <p class="ems-motto">
+                <i class="fas fa-bullhorn ems-icon"></i> Your safety isn't just our duty — it's our promise
+            </p>
+
+            <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary ems-btn">
+                <i class="fas fa-sign-in-alt ems-icon"></i> Login
+            </a>
+            <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-success ems-btn">
+                <i class="fas fa-user-plus ems-icon"></i> Register
+            </a>
+        </div>
+    </div>
+</body>
