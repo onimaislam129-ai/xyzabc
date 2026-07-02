@@ -1,0 +1,63 @@
+html {
+    font-size: 14px;
+    position: relative;
+    min-height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+/* Body spacing to avoid footer overlap */
+body {
+    margin-bottom: 60px;
+}
+
+/* Button and form focus styling */
+.btn:focus,
+.btn:active:focus,
+.btn-link.nav-link:focus,
+.form-control:focus,
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+.ems-body {
+    height: 100%;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: url('/images/security.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.ems-card {
+    background-color: rgba(255, 255, 255, 0.95); /* white with slight transparency */
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+.ems-btn {
+    width: 100%;
+    margin-top: 10px;
+    font-weight: 500;
+}
+
+.ems-motto {
+    font-style: italic;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.ems-icon {
+    margin-right: 8px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .ems-card {
+        margin: 20px auto;
+        max-width: 90%;
+        padding: 30px;
+    }
+}
