@@ -1,0 +1,44 @@
+﻿@page
+@model LogoutModel
+@{
+    ViewData["Title"] = "Log out";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<body class="ems-body">
+    <!-- Flex container to center card vertically and align left -->
+    <div class="d-flex justify-content-start align-items-center" style="height:100vh; padding-left:50px;">
+        <div class="ems-card" style="width:100%; max-width:480px; padding:40px; background-color: rgba(255,255,255,0.95); border:2px solid #aaa;">
+
+            <h2 class="mb-3">
+                <i class="fas fa-sign-out-alt me-2"></i> Log out
+            </h2>
+
+            @if (User.Identity?.IsAuthenticated ?? false)
+            {
+                <p class="mb-4">
+                    You are currently logged in. Click the button below to safely log out of your account.
+                </p>
+
+                <form class="d-grid gap-2" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Page("/", new { area = "" })" method="post">
+                    <button type="submit" class="btn btn-danger btn-lg">
+                        <i class="fas fa-door-open me-1"></i> Log out
+                    </button>
+                    <a href="/" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-home me-1"></i> Back to Home
+                    </a>
+                </form>
+            }
+            else
+            {
+                <p class="mb-4">
+                    You have successfully logged out of the application.
+                </p>
+                <a href="/" class="btn btn-primary btn-lg">
+                    <i class="fas fa-home me-1"></i> Back to Home
+                </a>
+            }
+        </div>
+    </div>
+</body>

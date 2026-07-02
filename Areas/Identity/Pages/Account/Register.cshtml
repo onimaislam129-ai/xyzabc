@@ -1,0 +1,82 @@
+﻿@page
+@model Employee_Management_System.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<body class="ems-body">
+    <div class="d-flex justify-content-start align-items-center" style="height:100vh; padding: 0 30px;">
+        <div class="ems-card" style="width:100%; max-width:500px; background-color: rgba(255,255,255,0.95); border:2px solid #aaa; padding:40px;">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+                <i class="fas fa-user-plus ems-icon"></i> Register
+            </h2>
+
+            <!-- Subtitle -->
+            <p class="ems-motto">
+                <i class="fas fa-pencil-alt ems-icon"></i> Create a new account
+            </p>
+
+            <!-- Form -->
+            <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                <!-- Email -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                    <label><i class="fas fa-envelope ems-icon"></i> Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <!-- Full Name -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.FullName" class="form-control" placeholder="Full Name" />
+                    <label><i class="fas fa-id-badge ems-icon"></i> Full Name</label>
+                    <span asp-validation-for="Input.FullName" class="text-danger"></span>
+                </div>
+
+                <!-- Position -->
+                <div class="form-floating mb-3">
+                    <select asp-for="Input.Position" class="form-select">
+                        <option value="">Select Position</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Guard">Guard</option>
+                    </select>
+                    <label><i class="fas fa-user-shield ems-icon"></i> Position</label>
+                    <span asp-validation-for="Input.Position" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="new-password" placeholder="Password" />
+                    <label><i class="fas fa-lock ems-icon"></i> Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" placeholder="Confirm Password" />
+                    <label><i class="fas fa-lock ems-icon"></i> Confirm Password</label>
+                    <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+                </div>
+
+                <!-- Submit Button -->
+                <button id="registerSubmit" type="submit" class="btn btn-success ems-btn">
+                    <i class="fas fa-user-check ems-icon"></i> Register
+                </button>
+
+                <a href="/Home/Index" class="btn btn-secondary ems-btn w-100 mt-2">
+                    <i class="fas fa-home ems-icon"></i> Back to Home
+                </a>
+
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>

@@ -1,0 +1,70 @@
+﻿@page
+@model Employee_Management_System.Areas.Identity.Pages.Account.LoginModel
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+
+<body class="ems-body">
+    <div class="d-flex justify-content-start align-items-center" style="height:100vh; padding: 0 30px;">
+        <div class="ems-card" style="width:100%; max-width:500px; background-color: rgba(255,255,255,0.95); border:2px solid #aaa; padding:40px;">
+
+            <!-- Heading -->
+            <h2 class="mb-2">
+                <i class="fas fa-sign-in-alt ems-icon"></i> Log in
+            </h2>
+
+            <!-- Subtitle -->
+            <p class="ems-motto">
+                <i class="fas fa-user-check ems-icon"></i> Use your account to log in
+            </p>
+
+            <!-- Login Form -->
+            <form id="account" method="post">
+                <div asp-validation-summary="ModelOnly" class="text-danger" role="alert"></div>
+
+                <!-- Email -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" placeholder="name@example.com" />
+                    <label><i class="fas fa-envelope ems-icon"></i> Email</label>
+                    <span asp-validation-for="Input.Email" class="text-danger"></span>
+                </div>
+
+                <!-- Password -->
+                <div class="form-floating mb-3">
+                    <input asp-for="Input.Password" class="form-control" autocomplete="current-password" placeholder="Password" type="password" />
+                    <label><i class="fas fa-lock ems-icon"></i> Password</label>
+                    <span asp-validation-for="Input.Password" class="text-danger"></span>
+                </div>
+
+                <!-- Remember Me -->
+                <div class="form-check mb-3">
+                    <input asp-for="Input.RememberMe" class="form-check-input" />
+                    <label asp-for="Input.RememberMe" class="form-check-label">
+                        <i class="fas fa-check ems-icon"></i> @Html.DisplayNameFor(m => m.Input.RememberMe)
+                    </label>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="btn btn-primary ems-btn w-100 mb-2">
+                    <i class="fas fa-sign-in-alt ems-icon"></i> Log in
+                </button>
+
+                <!-- Register Redirect Button -->
+                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="btn btn-success ems-btn w-100">
+                    <i class="fas fa-user-plus ems-icon"></i> Register
+                </a>
+
+                <a href="/Home/Index" class="btn btn-secondary ems-btn w-100 mt-2">
+                    <i class="fas fa-home ems-icon"></i> Back to Home
+                </a>
+
+            </form>
+        </div>
+    </div>
+
+    @section Scripts {
+        <partial name="_ValidationScriptsPartial" />
+    }
+</body>
